@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes/ToDoRoutes');
+const { swaggerUi, swaggerSpec } = require("./swagger");
 
 require('dotenv').config();
 
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(routes);
 
 app.listen(PORT, () => {
